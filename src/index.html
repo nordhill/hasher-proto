@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>title</title>
+  </head>
+  <body>
+    <style>
+      .hsh {
+        display: flex;
+        flex-direction: column;
+        max-width: 500px;
+      }
+      .hsh > input {
+        margin-bottom: 10px;
+      }
+      .hsh > button {
+        width: 150px;
+      }
+      .hsh-result {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 20px;
+      }
+    </style>
+    <div class="hsh">
+      <label for="hashable">Hashable*</label>
+      <input tabindex="0" id="hashable" type="password" />
+      <button id="generate" tabindex="0">Generate</button>
+      <div class="hsh-result">
+        <div>
+          Hash: <span id="hashResult"></span>
+        </div>
+        <button id="copy" disabled>Copy</button>
+      </div>
+    </div>
+    <script type="text/javascript" src="./index.hash.js"></script>
+  </body>
+</html>
+ 
