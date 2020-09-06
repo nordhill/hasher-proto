@@ -4,11 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "./node_modules/.bin/serve ./build",
+    "start": "./node_modules/.bin/serve ./docs",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/webpack-cli --config ./webpack.config.js",
-    "prebuild": "rm -rf ./build",
-    "postbuild": "node ./scripts/fileNameHasher.js ../build/index.js && cp src/index.html build/index.html && node ./scripts/replaceScriptHash.js"
+    "prebuild": "rm -rf ./docs",
+    "postbuild": "node ./scripts/fileNameHasher.js ../docs/index.js && cp src/index.html docs/index.html && node ./scripts/replaceScriptHash.js"
   },
   "author": "",
   "license": "ISC",
