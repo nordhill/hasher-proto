@@ -2,35 +2,40 @@ import cryptojs from 'crypto-js'
 
 const getHashableInput = document.getElementById('hashable')
 const hashResult = document.getElementById('hashResult')
-const generateBtn = document.getElementById('generate')
-const copyBtn = document.getElementById('copy')
 
-const appState = {
-  hash: null
+const debounce = (func, wait = 100) => {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      func.apply(this, args)
+    }, wait)
+  }
 }
 
 const getSHA3GeneratedStr = (str) => {
   return cryptojs.SHA3(str).toString()
 }
 
-const copyToClipboard = (text) => {
+const copyToClipboard = (text, cb) => {
   const data = [new ClipboardItem({ 'text/plain': new Blob([text], { type: 'text/plain' })})]
-  copyBtn.setAttribute('disabled', true)
   navigator.clipboard.write(data).then(() => {
-    copyBtn.removeAttribute('disabled')
+    if(cb) cb()
   })
 }
 
-generateBtn.addEventListener('click', (ev) => {
+const generate = () => {
   const { value } = getHashableInput
   const hash = getSHA3GeneratedStr(value)
   const firstLetters = hash.slice(0, 3)
   const ellipsedHash = `${firstLetters}...`
-  hashResult.innerHTML = ellipsedHash
-  appState.hash = hash
-  copyBtn.removeAttribute('disabled')
-})
+  copyToClipboard(hash, () => {
+    hashResult.innerHTML = ellipsedHash
+  })
+}
 
-copyBtn.addEventListener('click', () => {
-  copyToClipboard(appState.hash)
-})
+const debouncedGenerate = debounce(generate, 300)
+
+getHashableInput.addEventListener('keydown', debouncedGenerate)
+
+getHashableInput.focus()
