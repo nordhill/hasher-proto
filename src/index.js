@@ -1,4 +1,5 @@
 import cryptojs from 'crypto-js'
+import { toLeet }from './leet'
 
 const getHashableInput = document.getElementById('hashable')
 const hashResult = document.getElementById('hashResult')
@@ -26,7 +27,7 @@ const copyToClipboard = (text, cb) => {
 
 const generate = () => {
   const { value } = getHashableInput
-  const hash = getSHA3GeneratedStr(value)
+  const hash = getSHA3GeneratedStr(toLeet(value))
   const firstLetters = hash.slice(0, 3)
   const ellipsedHash = `${firstLetters}...`
   copyToClipboard(hash, () => {
