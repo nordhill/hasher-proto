@@ -28,6 +28,10 @@ const copyToClipboard = (text, cb) => {
 const generate = () => {
   const { value } = getHashableInput
   const hash = getSHA3GeneratedStr(toLeet(value))
+    .slice(0, 15)
+    .replace(/4/gi, '@')
+    .replace(/5/gi, '$')
+    .replace(/1/gi, '!')
   const firstLetters = hash.slice(0, 3)
   const ellipsedHash = `${firstLetters}...`
   copyToClipboard(hash, () => {
